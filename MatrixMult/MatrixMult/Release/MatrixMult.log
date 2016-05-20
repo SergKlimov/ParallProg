@@ -1,0 +1,18 @@
+﻿Build started 03.05.2016 20:03:57.
+     1>Project "C:\Users\ASER\Documents\Visual Studio 2013\Projects\MatrixMult\MatrixMult\MatrixMult.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>main.cpp(45): warning C4101: 'dwThreadIdArray' : unreferenced local variable
+     1>main.cpp(44): warning C4101: 'pDataArray' : unreferenced local variable
+     1>main.cpp(46): warning C4101: 'hThreadArray' : unreferenced local variable
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\ASER\Documents\Visual Studio 2013\Projects\MatrixMult\Release\MatrixMult.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\ASER\Documents\Visual Studio 2013\Projects\MatrixMult\Release\MatrixMult.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\ASER\Documents\Visual Studio 2013\Projects\MatrixMult\Release\MatrixMult.lib" /MACHINE:X86 /SAFESEH Release\main.obj
+         Generating code
+         Finished generating code
+         MatrixMult.vcxproj -> C:\Users\ASER\Documents\Visual Studio 2013\Projects\MatrixMult\Release\MatrixMult.exe
+     1>Done Building Project "C:\Users\ASER\Documents\Visual Studio 2013\Projects\MatrixMult\MatrixMult\MatrixMult.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.44

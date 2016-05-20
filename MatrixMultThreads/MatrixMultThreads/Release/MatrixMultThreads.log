@@ -1,0 +1,19 @@
+﻿Build started 04.05.2016 0:27:57.
+     1>Project "C:\Users\ASER\documents\visual studio 2013\Projects\MatrixMultThreads\MatrixMultThreads\MatrixMultThreads.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>main.cpp(188): warning C4101: 'cchStringSize' : unreferenced local variable
+     1>main.cpp(183): warning C4101: 'time' : unreferenced local variable
+     1>main.cpp(189): warning C4101: 'dwChars' : unreferenced local variable
+     1>main.cpp(187): warning C4101: 'msgBuf' : unreferenced local variable
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\ASER\documents\visual studio 2013\Projects\MatrixMultThreads\Release\MatrixMultThreads.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\ASER\documents\visual studio 2013\Projects\MatrixMultThreads\Release\MatrixMultThreads.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\ASER\documents\visual studio 2013\Projects\MatrixMultThreads\Release\MatrixMultThreads.lib" /MACHINE:X86 /SAFESEH Release\main.obj
+         Generating code
+         Finished generating code
+         MatrixMultThreads.vcxproj -> C:\Users\ASER\documents\visual studio 2013\Projects\MatrixMultThreads\Release\MatrixMultThreads.exe
+     1>Done Building Project "C:\Users\ASER\documents\visual studio 2013\Projects\MatrixMultThreads\MatrixMultThreads\MatrixMultThreads.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.36

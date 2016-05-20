@@ -5,9 +5,12 @@
 #include <tchar.h>
 #include <strsafe.h>
 #include "fstream"
+#include "iostream"
+#include "windows.h"
+
 using namespace std;
 
-#define MAX_THREADS 3
+#define MAX_THREADS 2
 #define BUF_SIZE 255
 
 DWORD WINAPI MyThreadFunction(LPVOID lpParam);
@@ -20,20 +23,39 @@ typedef struct MyData {
 	int** m2;
 	int** res;
 	int size;
+	int nk;
 } MYDATA, *PMYDATA;
 
 int main(int argc, char** argv)
 {
-	PMYDATA pDataArray[MAX_THREADS];
-	DWORD   dwThreadIdArray[MAX_THREADS];
-	HANDLE  hThreadArray[MAX_THREADS];
+	PMYDATA* pDataArray;
+	DWORD   *dwThreadIdArray;
+	HANDLE  *hThreadArray;
 
-	if (argc < 2){
+	
+	//PMYDATA pDataArray[MAX_THREADS];
+	//DWORD   dwThreadIdArray[MAX_THREADS];
+	//BHANDLE  hThreadArray[MAX_THREADS];
+
+	LARGE_INTEGER frequency;        // ticks per second
+	LARGE_INTEGER t1, t2;           // ticks
+	double elapsedTime;
+
+	QueryPerformanceFrequency(&frequency);
+
+	if (argc < 3){
 		puts("No args");
 		return 1;
 	}
 	int s = 0;
 	s = atoi(argv[1]);
+
+	int nk = 0;
+	nk = atoi(argv[2]);
+
+	pDataArray = (PMYDATA*)malloc(nk*sizeof(PMYDATA));
+	dwThreadIdArray = (DWORD*)malloc(nk*sizeof(DWORD));
+	hThreadArray = (HANDLE*)malloc(nk*sizeof(HANDLE));
 
 	//printf("size: %d\n", s);
 
@@ -64,7 +86,9 @@ int main(int argc, char** argv)
 				break;
 		}
 
-	for (int i = 0; i < MAX_THREADS; i++){
+	QueryPerformanceCounter(&t1);
+
+	for (int i = 0; i < nk; i++){
 
 		// Allocate memory for thread data.
 
@@ -86,6 +110,7 @@ int main(int argc, char** argv)
 		pDataArray[i]->m2 = tmp2;
 		pDataArray[i]->res = res;
 		pDataArray[i]->size = s;
+		pDataArray[i]->nk = nk;
 
 		// Create the thread to begin execution on its own.
 
@@ -109,19 +134,27 @@ int main(int argc, char** argv)
 		}
 	}
 
-	WaitForMultipleObjects(MAX_THREADS, hThreadArray, TRUE, INFINITE);
+	WaitForMultipleObjects(nk, hThreadArray, TRUE, INFINITE);
 
-	//printf_s("Thread result:\n");
+	QueryPerformanceCounter(&t2);
 
-	for (int i = 0; i < s; i++) {
+	elapsedTime = (t2.QuadPart - t1.QuadPart) * 1000.0 / frequency.QuadPart;
+	cout << elapsedTime << " ms.\n";
+
+	ofstream ost;
+	ost.open("thr_res.txt");
+
+	for (int i = 0; i<s; i++) {
 		for (int j = 0; j < s; j++)
-			printf("%d\t", res[i][j]);
-		printf("\n");
+			ost << res[i][j] << "\t";
+		ost << endl;
 	}
+	ost << endl;
+	ost.close();
 
 	// Close all thread handles and free memory allocations.
 
-	for (int i = 0; i<MAX_THREADS; i++)
+	for (int i = 0; i<nk; i++)
 	{
 		CloseHandle(hThreadArray[i]);
 		if (pDataArray[i] != NULL)
@@ -161,6 +194,7 @@ void debug_thread(LPVOID lpParam){
 
 DWORD WINAPI MyThreadFunction(LPVOID lpParam)
 {
+	SYSTEMTIME time;
 	HANDLE hStdout;
 	PMYDATA pDataArray;
 
@@ -180,13 +214,23 @@ DWORD WINAPI MyThreadFunction(LPVOID lpParam)
 
 	pDataArray = (PMYDATA)lpParam;
 
+	int nk = pDataArray->nk;
+
 	//int n_lines = pDataArray->size / MAX_THREADS;
-	int n_lines = (pDataArray->size + MAX_THREADS - (pDataArray->size % MAX_THREADS)) / MAX_THREADS;
+
+	int n_lines;
+
+	if (pDataArray->size % nk != 0)
+		n_lines = (pDataArray->size + nk - (pDataArray->size % nk)) / nk;
+	else
+	{
+		n_lines = pDataArray->size / nk;
+	}
 	int sum = 0;
 	int pr1;
 
 	int pr = (pDataArray->num + 1)*n_lines;
-
+	//printf("Thread %d\n", pDataArray->num);
 	if (pr > pDataArray->size)
 		pr = pDataArray->size;
 	for (int l = pDataArray->num*n_lines; l < pr; l++){
@@ -198,7 +242,9 @@ DWORD WINAPI MyThreadFunction(LPVOID lpParam)
 			pDataArray->res[l][j] = sum;
 			pr1 = sum;
 			sum = 0;
+			//printf("%d\t", pDataArray->res[l][j]);
 		}
+		//printf("\n");
 	}
 	return 0;
 }
